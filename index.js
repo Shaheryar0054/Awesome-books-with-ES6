@@ -1,7 +1,7 @@
 import nav from './modules/nav-menu.js';
 import Book from './modules/Book-storage.js';
 import { DateTime } from './modules/luxon.js';
-import store from './modules/Display.js';
+import store from './modules/store.js';
 
 nav();
 
