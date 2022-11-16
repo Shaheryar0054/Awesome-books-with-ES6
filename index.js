@@ -1,23 +1,57 @@
 import * as Navigation from './modules/nav-menu.js';
-import store from './modules/local-storage.js';
-import UI from './modules/display.js';
 import Book from './modules/Book-storage.js';
 import { DateTime } from './modules/luxon.js';
-
 Navigation.nav();
-
 /* eslint-disable */
-const data = document.querySelector("#data");
+import  store  from './modules/display.js';
+/* eslint-enable */
+
+class UI {
+  static displayBooks() {
+    const books = store.getBooks();
+
+    books.forEach((book) => UI.addBookToList(book));
+  }
+
+  static addBookToList(book) {
+    const list = document.querySelector('#data');
+
+    const div = document.createElement('div');
+    div.className = 'data-container';
+
+    div.innerHTML = `
+          <p>"${book.title}"</p>
+          <p>by</p>
+          <p>${book.authore}</p>
+          <div><button id="remove-btn" class='delete'>Remove</button></div>
+       `;
+
+    list.appendChild(div);
+  }
+
+  static deleteBook(el) {
+    if (el.classList.contains('delete')) {
+      el.parentElement.parentElement.remove();
+    }
+  }
+
+  static clearField() {
+    document.querySelector('#title').value = '';
+    document.querySelector('#author').value = '';
+  }
+}
+
+// store data in local storage
 
 //  Event for display books
-document.addEventListener("DOMContentLoaded", UI.displayBooks);
+document.addEventListener('DOMContentLoaded', UI.displayBooks);
 
 // Add event listener to the add button
-document.querySelector("#form").addEventListener("submit", (e) => {
+document.querySelector('#form').addEventListener('submit', (e) => {
   // Prevent actual submit
   e.preventDefault();
-  const title = document.querySelector("#title").value;
-  const authore = document.querySelector("#author").value;
+  const title = document.querySelector('#title').value;
+  const authore = document.querySelector('#author').value;
 
   // Instatiate book
   const book = new Book(title, authore);
@@ -33,7 +67,8 @@ document.querySelector("#form").addEventListener("submit", (e) => {
 });
 
 // Event to remove books
-document.querySelector("#data").addEventListener("click", (e) => {
+const data = document.querySelector('#data');
+data.addEventListener('click', (e) => {
   // Remove book from UI
   UI.deleteBook(e.target);
   // Remove book from local storage

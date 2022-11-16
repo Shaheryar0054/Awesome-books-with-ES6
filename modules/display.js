@@ -1,35 +1,30 @@
-/* eslint-disable */
-export default class UI {
-  static displayBooks() {
+export default class store {
+  static getBooks() {
+    let books;
+    if (localStorage.getItem('books') === null) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem('books'));
+    }
+    return books;
+  }
+
+  static addBook(book) {
     const books = store.getBooks();
 
-    books.forEach((book) => UI.addBookToList(book));
+    books.push(book);
+
+    localStorage.setItem('books', JSON.stringify(books));
   }
 
-  static addBookToList(book) {
-    const list = document.querySelector('#data');
+  static removeBook(authore) {
+    const books = store.getBooks();
+    books.forEach((book, index) => {
+      if (book.authore === authore) {
+        books.splice(index, 1);
+      }
+    });
 
-    const div = document.createElement('div');
-    div.className = 'data-container';
-
-    div.innerHTML = `
-          <p>"${book.title}"</p>
-          <p>by</p>
-          <p>${book.authore}</p>
-          <div><button id="remove-btn" class='delete'>Remove</button></div>
-       `;
-
-    list.appendChild(div);
-  }
-
-  static deleteBook(el) {
-    if (el.classList.contains('delete')) {
-      el.parentElement.parentElement.remove();
-    }
-  }
-
-  static clearField() {
-    document.querySelector('#title').value = '';
-    document.querySelector('#author').value = '';
+    localStorage.setItem('books', JSON.stringify(books));
   }
 }

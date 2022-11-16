@@ -1,16 +1,6 @@
 // Navigation menu
-/* eslint-disable */
+/* eslint-disable import/prefer-default-export */
 export const nav = () => {
-  document.getElementById('list').addEventListener('click', () => {
-    showList();
-  });
-  document.getElementById('add').addEventListener('click', () => {
-    showAdd();
-  });
-  document.getElementById('cont').addEventListener('click', () => {
-    showContact();
-  });
-
   const defaultDisplay = () => {
     document.getElementById('diplay-list').setAttribute('class', 'non-show');
     document.getElementById('input-data').setAttribute('class', 'show');
@@ -36,4 +26,14 @@ export const nav = () => {
     document.getElementById('input-data').setAttribute('class', 'non-show');
     document.getElementById('contact').setAttribute('class', 'show');
   };
+
+  document.getElementById('list').addEventListener('click', () => {
+    showList();
+  });
+  document.getElementById('add').addEventListener('click', () => {
+    showAdd();
+  });
+  document.getElementById('cont').addEventListener('click', () => {
+    showContact();
+  });
 };
