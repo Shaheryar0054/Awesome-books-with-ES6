@@ -1,6 +1,5 @@
 // Navigation menu
-/* eslint-disable import/prefer-default-export */
-export const nav = () => {
+const nav = () => {
   const defaultDisplay = () => {
     document.getElementById('diplay-list').setAttribute('class', 'non-show');
     document.getElementById('input-data').setAttribute('class', 'show');
@@ -37,3 +36,5 @@ export const nav = () => {
     showContact();
   });
 };
+
+export default nav;
